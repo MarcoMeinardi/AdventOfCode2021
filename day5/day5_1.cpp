@@ -22,4 +22,5 @@ int main () {
 	}
 
 	cout << tot << endl;
+	return 0;
 }

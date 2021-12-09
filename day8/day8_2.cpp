@@ -197,4 +197,5 @@ int main () {
 	delete[] c_line;
 	delete[] output;
 	cout << tot << endl;
+	return 0;
 }

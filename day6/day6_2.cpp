@@ -20,4 +20,5 @@ int main () {
 	}
 
 	cout << (long)accumulate(fish, fish + 9, 0L) << endl;
+	return 0;
 }

@@ -20,4 +20,5 @@ int main () {
 	}
 
 	cout << (int)accumulate(fish, fish + 9, 0) << endl;
+	return 0;
 }

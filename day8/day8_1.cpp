@@ -19,4 +19,5 @@ int main () {
 	delete[] output;
 
 	cout << tot << endl;
+	return 0;
 }
