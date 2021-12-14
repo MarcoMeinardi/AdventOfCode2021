@@ -4,24 +4,29 @@ using namespace std;
 #define START 0
 #define END 1
 
-int explore(int node, vector <vector <int>>& graph, vector <bool>& small, vector <bool>& vis, int double_visit, bool has_double_visited) {
+int explore(int node, vector <vector <int>>& graph, vector <bool>& small, vector <bool>& vis, bool has_double_visited) {
 	if (node == END) {
-		return double_visit == END || vis[double_visit];
+		return 1;
 	}
-	if (node == START || vis[node]) {
+	if (node == START) {
 		return 0;
 	}
 
-	int tot = 0;
-	if (node == double_visit && !has_double_visited) {
+	bool just_double = false;
+	if (vis[node]) {
+		if (has_double_visited) {
+			return 0;
+		}
 		has_double_visited = true;
-	} else {
-		vis[node] = small[node];
+		just_double = true;
 	}
+
+	int tot = 0;
+	vis[node] = small[node];
 	for (int neightbour : graph[node]) {
-		tot += explore(neightbour, graph, small, vis, double_visit, has_double_visited);
+		tot += explore(neightbour, graph, small, vis, has_double_visited);
 	}
-	vis[node] = false;
+	vis[node] = just_double;
 	return tot;
 }
 
@@ -69,10 +74,8 @@ int main () {
 	}
 
 	vis = vector <bool> (n_nodes, false);
-	for (int double_visit = END; double_visit < n_nodes; double_visit++) {
-		for (int neightbour : graph[START]) {
-			tot += explore(neightbour, graph, small, vis, double_visit, false);
-		}
+	for (int neightbour : graph[START]) {
+		tot += explore(neightbour, graph, small, vis, false);
 	}
 
 	cout << tot << endl;
